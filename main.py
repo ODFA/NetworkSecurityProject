@@ -31,7 +31,7 @@ for p in range(len(trainingValues)):
 	inputSynapses += numpy.dot(inputValues.T, hiddenDelta)
 	hiddenSynsapses += numpy.dot(hiddenValues.T, outputDelta)
 while (True):
-	inputValues = [raw_input("0 or 1") for r in xrange(0, 6)]
+	inputValues = [int(raw_input("0 or 1")) for r in xrange(0, 6)]
 	hiddenValues = sigmoid(numpy.dot(inputValues, inputSynapses))
 	outputValues = sigmoid(numpy.dot(hiddenValues, hiddenSynapses))
 	if outputValues[0] < outputValues[1]: print("The network predicts true")
