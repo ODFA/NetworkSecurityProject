@@ -8,7 +8,7 @@ layerThreeNodes = 1
 
 #Creating a sigmoid function to keep neuron values between 0 and 1, and so you can find the derivative of a point
 def sigmoid(vector, derivativeMode = False):
-	if derivativeMode: return (vector * (vector - 1)) #Return the derivative if in derivative mode
+	if derivativeMode: return (vector * (1 - vector)) #Return the derivative if in derivative mode
 	else: return (1 / (1 + numpy.exp(-vector))) #Return sigmoid(x) if not in derivative mode
 
 def getLabel(values):
@@ -25,7 +25,6 @@ LayerOneSynapses = (numpy.random.random((layerOneNodes, layerTwoNodes)) * 2) - 1
 LayerTwoSynapses = (numpy.random.random((layerTwoNodes, layerThreeNodes)) * 2) - 1 #Create an array with layerTwoNodes elements that contain arrays with layerThreeNodes elements that contain a value between -1 and 1
 
 #Training loop
-print(LayerOneSynapses)
 for p in xrange(int(raw_input("Training iterations: "))):
 
 	#Foward propegation
@@ -42,11 +41,9 @@ for p in xrange(int(raw_input("Training iterations: "))):
 	LayerOneSynapses += numpy.dot(inputValues.T, hiddenDelta)
 	LayerTwoSynapses += numpy.dot(hiddenValues.T, outputDelta)
 
-print(LayerOneSynapses) #TEMP
-
 while (True):
 
-	inputValues = numpy.array([int(raw_input("0 or 1\n")) for r in xrange(LayerOneSynapses)])
+	inputValues = numpy.array([int(raw_input("0 or 1\n")) for r in xrange(layerOneNodes)])
 	hiddenValues = sigmoid(numpy.dot(inputValues, LayerOneSynapses))
 	outputValues = sigmoid(numpy.dot(hiddenValues, LayerTwoSynapses))
 
